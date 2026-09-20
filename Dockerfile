@@ -4,13 +4,15 @@
 #   docker run --rm -v "$PWD:/work" md-pdf input.md [output.pdf]
 # (Input/output paths are resolved against /work inside the container.)
 
-FROM node:20-slim
+FROM node:22-bookworm-slim
 
-# headless Chromium system libraries (puppeteer's chrome needs these)
+# headless Chromium system libraries (puppeteer's chrome needs these).
+# Bookworm (Debian 12) package names - note: NOT the -t64 names used on
+# Ubuntu 24.04/Debian 13.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libdrm2 \
+    libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 \
     libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 \
-    libasound2t64 fonts-liberation ca-certificates \
+    libasound2 fonts-liberation ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tool

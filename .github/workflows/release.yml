@@ -1,8 +1,9 @@
 # Publish the tool in one shot when you tag a release:
 #   git tag v1.0.0 && git push origin v1.0.0
 # This will:
-#   1. publish "markdown-to-pdf" to npm (needs secrets.NPM_TOKEN),
+#   1. publish "markdown-to-pdf" to npm (SKIPPED if no NPM_TOKEN secret),
 #   2. push a Docker image to ghcr.io/<owner>/md_to_pdf.
+# Docker + Release do not depend on npm, so they work token-less.
 
 name: Publish
 
@@ -18,12 +19,13 @@ permissions:
 jobs:
   npm:
     name: Publish to npm
+    if: ${{ secrets.NPM_TOKEN != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci --no-audit --no-fund
       - run: npm publish --access public
@@ -52,7 +54,7 @@ jobs:
   release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [npm, docker]
+    needs: [docker]
     steps:
       - uses: actions/checkout@v4
       - name: Create Release
