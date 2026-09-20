@@ -1,0 +1,22 @@
+# Consumer example 1/2 - use the REUSABLE WORKFLOW (zero code copied).
+#
+# Drop this file into ANY project repo as .github/workflows/build-pdf.yml
+# and replace <YOUR-GITHUB-USERNAME>. The tool lives only in its own repo -
+# your project just references it by version tag.
+
+name: Build PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'UiPath_Handbook.md'
+      - '**.md'
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf/.github/workflows/build-pdf.yml@v1
+    with:
+      input: 'UiPath_Handbook.md'   # path relative to this repo root
+      output: 'UiPath_Handbook.pdf' # optional; defaults to <input>.pdf

@@ -1,0 +1,31 @@
+# Consumer example 2/2 - use the COMPOSITE ACTION when you want to control
+# the job yourself (e.g. build multiple files, or add your own steps).
+#
+#   uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf@v1
+#   with:
+#     input:  'docs/handbook.md'
+#     output: 'out/handbook.pdf'     # optional
+
+name: Build PDF (composite action)
+
+on:
+  push:
+    paths: ['docs/**']
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Render markdown to PDF
+        uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf@v1
+        with:
+          input: 'docs/handbook.md'
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: handbook
+          path: docs/handbook.pdf

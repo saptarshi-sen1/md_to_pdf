@@ -1,0 +1,38 @@
+{
+  "name": "markdown-to-pdf",
+  "version": "0.1.0",
+  "description": "Convert any Markdown file to a single A4 PDF with all mermaid diagrams drawn (not shown as code) and never split across pages. Headless Chromium (puppeteer) + mermaid + marked + highlight.js. Ships as an npm CLI, a GitHub composite action, a reusable workflow, and a Docker image.",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "markdown",
+    "pdf",
+    "mermaid",
+    "diagram",
+    "puppeteer",
+    "documentation"
+  ],
+  "bin": {
+    "markdown-to-pdf": "build-pdf.js"
+  },
+  "files": [
+    "build-pdf.js",
+    "style.css",
+    "action.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node build-pdf.js",
+    "test": "node build-pdf.js examples/sample.md examples/sample.pdf"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "highlight.js": "^11.9.0",
+    "marked": "^12.0.0",
+    "mermaid": "^10.9.1",
+    "puppeteer": "^23.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+# Dependencies - install fresh in CI with `npm ci`
+node_modules/
+
+# Generated PDFs / build artifacts (CI serves them via artifact/release)
+*.pdf
+!examples/sample.pdf
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

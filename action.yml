@@ -1,0 +1,41 @@
+name: 'Markdown To PDF'
+description: 'Render a Markdown file to a single A4 PDF with all mermaid diagrams drawn and none cut across pages. Headless Chromium (puppeteer) + mermaid + marked + highlight.js.'
+author: 'USC KIIT'
+inputs:
+  input:
+    description: 'Path to the Markdown file (relative to the repo root of the calling project).'
+    required: true
+  output:
+    description: 'Optional output PDF path (relative to repo root). Defaults to <input>.pdf.'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install headless-Chromium system libraries
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libdrm2 \
+          libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 \
+          libasound2t64 fonts-liberation
+
+    - name: Install tool dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --no-audit --no-fund
+
+    - name: Build PDF
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      run: |
+        if [ -n "${{ inputs.output }}" ]; then
+          node "${{ github.action_path }}/build-pdf.js" "${{ inputs.input }}" "${{ inputs.output }}"
+        else
+          node "${{ github.action_path }}/build-pdf.js" "${{ inputs.input }}"
+        fi
