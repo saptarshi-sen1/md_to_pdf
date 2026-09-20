@@ -16,7 +16,7 @@ on:
 
 jobs:
   pdf:
-    uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf/.github/workflows/build-pdf.yml@v1
+    uses: saptarshi-sen1/md_to_pdf/.github/workflows/build-pdf.yml@v1
     with:
       input: 'UiPath_Handbook.md'   # path relative to this repo root
       output: 'UiPath_Handbook.pdf' # optional; defaults to <input>.pdf

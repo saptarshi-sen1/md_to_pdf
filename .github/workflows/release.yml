@@ -2,7 +2,7 @@
 #   git tag v1.0.0 && git push origin v1.0.0
 # This will:
 #   1. publish "markdown-to-pdf" to npm (needs secrets.NPM_TOKEN),
-#   2. push a Docker image to ghcr.io/<owner>/markdown-to-pdf.
+#   2. push a Docker image to ghcr.io/<owner>/md_to_pdf.
 
 name: Publish
 
@@ -46,8 +46,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/markdown-to-pdf:latest
-            ghcr.io/${{ github.repository_owner }}/markdown-to-pdf:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/md_to_pdf:latest
+            ghcr.io/${{ github.repository_owner }}/md_to_pdf:${{ github.ref_name }}
 
   release:
     name: Create GitHub Release

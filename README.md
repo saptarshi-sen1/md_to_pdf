@@ -14,6 +14,8 @@ never carry their own copy. You consume it in one of four ways (all provided her
 | [3. npm CLI](#3-npm-cli-global-install) | Your laptop - run from any folder | ✅ |
 | [4. Docker image](#4-docker-ghcr) | Servers / scheduled jobs | ✅ |
 
+GitHub repo: `saptarshi-sen1/md_to_pdf`  ·  npm package: `markdown-to-pdf`
+
 ## What's in this repo
 
 | Item | Purpose |
@@ -50,7 +52,7 @@ on:
 
 jobs:
   pdf:
-    uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf/.github/workflows/build-pdf.yml@v1
+    uses: saptarshi-sen1/md_to_pdf/.github/workflows/build-pdf.yml@v1
     with:
       input:  'UiPath_Handbook.md'   # relative to the caller repo
       output: 'UiPath_Handbook.pdf'  # optional; defaults to <input>.pdf
@@ -65,7 +67,7 @@ as an artifact, and on tag pushes it is attached to the project's release.
 steps:
   - uses: actions/checkout@v4
   - name: Render markdown to PDF
-    uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf@v1
+    uses: saptarshi-sen1/md_to_pdf@v1
     with:
       input:  'docs/handbook.md'
       # output: 'out/handbook.pdf'   # optional
@@ -89,8 +91,8 @@ also use it via `npx markdown-to-pdf` after `npm i -D markdown-to-pdf`.
 ## 4. Docker (GHCR)
 
 ```sh
-docker pull ghcr.io/<YOUR-GITHUB-USERNAME>/markdown-to-pdf:latest
-docker run --rm -v "$PWD:/work" ghcr.io/<YOUR-GITHUB-USERNAME>/markdown-to-pdf:latest input.md [output.pdf]
+docker pull ghcr.io/saptarshi-sen1/md_to_pdf:latest
+docker run --rm -v "$PWD:/work" ghcr.io/saptarshi-sen1/md_to_pdf:latest input.md [output.pdf]
 ```
 
 Ideal for cron jobs / servers. There is also a local build option:
@@ -98,23 +100,19 @@ Ideal for cron jobs / servers. There is also a local build option:
 
 ---
 
-## Publishing (one time, when you're ready)
+## Publishing (already pushed - only tagging/publishing left)
 
-1. Install the GitHub CLI (or create the repo in the web UI), then:
+The repo is already on GitHub (`saptarshi-sen1/md_to_pdf`, branch `main`). To make it
+available to other repos via `@v1` and to the world via npm/GHCR:
 
-   ```sh
-   gh auth login
-   gh repo create markdown-to-pdf --public --source C:\Users\KIIT\Desktop\markdown-to-pdf --push
-   ```
-
-2. Add an npm token so the release workflow can publish:
+1. Add an npm token so the release workflow can publish:
    npmjs.com → *Access Tokens* → generate → repo *Settings → Secrets and variables →
    Actions* → `NPM_TOKEN`.
-
-3. Bump `version` in `package.json`, then:
+2. Bump `version` in `package.json`, then:
 
    ```sh
    git tag v1.0.0 && git push origin v1.0.0
+   git tag v1 && git push origin v1     # moving tag consumers lock onto
    ```
 
    The `Publish` workflow then: publishes to npm, pushes the Docker image to GHCR,

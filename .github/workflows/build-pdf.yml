@@ -7,7 +7,7 @@
 #     workflow_dispatch:
 #   jobs:
 #     pdf:
-#       uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf/.github/workflows/build-pdf.yml@v1
+#       uses: saptarshi-sen1/md_to_pdf/.github/workflows/build-pdf.yml@v1
 #       with:
 #         input:  'UiPath_Handbook.md'
 #         output: 'UiPath_Handbook.pdf'
@@ -50,7 +50,7 @@ jobs:
       - name: Checkout tool repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/markdown-to-pdf
+          repository: ${{ github.repository_owner }}/md_to_pdf
           path: .mdpdf-tool
 
       - name: Setup Node

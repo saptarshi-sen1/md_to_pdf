@@ -1,7 +1,7 @@
 # Consumer example 2/2 - use the COMPOSITE ACTION when you want to control
 # the job yourself (e.g. build multiple files, or add your own steps).
 #
-#   uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf@v1
+#   uses: saptarshi-sen1/md_to_pdf@v1
 #   with:
 #     input:  'docs/handbook.md'
 #     output: 'out/handbook.pdf'     # optional
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Render markdown to PDF
-        uses: <YOUR-GITHUB-USERNAME>/markdown-to-pdf@v1
+        uses: saptarshi-sen1/md_to_pdf@v1
         with:
           input: 'docs/handbook.md'
 
